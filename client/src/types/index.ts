@@ -7,6 +7,13 @@ export interface EndpointStatus {
   data?: Record<string, unknown>;
 }
 
+export interface WebSocketState {
+  status: Record<Region, EndpointStatus> | null;
+  error: string | null;
+  lastUpdated: Date | null;
+  isReconnecting: boolean;
+}
+
 /**
  * Type for the status map received from the server.
  */

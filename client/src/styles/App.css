@@ -1,12 +1,36 @@
 .app {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  padding: 24;
-  max-width: 1200;
-  margin: '0 auto';
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .lastUpdated {
   color: '#666';
-  margin-bottom: 8;
-  font-size: 14;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.error {
+  color: 'red';
+  margin-bottom: 16px;
+}
+
+.reconnect {
+  color: '#d97706';
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.card {
+  display: 'grid';
+  grid-template-columns: '1fr';
+  gap: 24px;
+}
+
+.region {
+  min-width: 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 24px;
 }

@@ -1,81 +1,9 @@
-import { useState, useEffect } from 'react';
-import { MESSAGE_TYPES, RECONNECT_BASE_DELAY_MS, RECONNECT_MAX_DELAY_MS } from './constants/constants';
-import type { WSMessage, StatusMap } from './types';
-// import './App.css'
+import { useWebsocket } from './hooks/useWebsocket';
+import './styles/App.css'
+import { REGIONS } from './constants';
 
 function App() {
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [reconnecting, setReconnecting] = useState<boolean>(false);
-  const [wsError, setWsError] = useState<string | null>(null);
-  const [status, setStatus] = useState<StatusMap | null>(null)
-  
-  useEffect(() => {
-    let ws: WebSocket | null = null;
-    let reconnectAttempts = 0;
-    let reconnectTimeout: NodeJS.Timeout | null = null
-    let closedByUser = false;
-
-    /**
-     * Establishes a WebSocket connection to the server and set up event handlers.
-     */
-    function connect() {
-      const isProduction = process.env.NODE_ENV === 'production';
-      const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-      const wsUrl = isProduction ? `${wsProtocol}//${window.location.hostname}:8080` : 'ws://localhost:8080';
-
-      ws = new WebSocket(wsUrl);
-      setReconnecting(false);
-
-      ws.onopen = () => {
-        setWsError(null);
-        reconnectAttempts = 0;
-      }
-
-      ws.onmessage = (event: MessageEvent) => {
-        try {
-          const msg: WSMessage = JSON.parse(event.data);
-          if (msg.type === MESSAGE_TYPES.STATUS_UPDATE) {
-            setStatus(msg.payload);
-            console.log(msg.payload)
-            setLastUpdated(new Date());
-          }
-        } catch (err) {
-          setWsError('Invalid message format received from server');
-          console.error('Error parsing WebSocket message:', err);
-        }
-      }
-
-      ws.onerror = () => {
-        setWsError('WebSocket connection error');
-      }
-
-      ws.onclose = () => { 
-        if (!closedByUser) {
-          setWsError("WebSocket connection closed unexpectedly");
-          setReconnecting(true);
-          // Exponential backoff for reconnection attempts
-          const delay = Math.min(RECONNECT_BASE_DELAY_MS * 2 ** reconnectAttempts, RECONNECT_MAX_DELAY_MS);
-          reconnectTimeout = setTimeout(() => { 
-            reconnectAttempts++;
-            connect();
-          }, delay);
-        }
-      }
-    }
-  
-    connect();
-
-    return () => {
-      closedByUser = true;
-      if (ws) {
-        ws.close();
-      }
-      if (reconnectTimeout) {
-        clearTimeout(reconnectTimeout)
-      }
-    }
-  }, [])
-  
+ const { status, error: wsError, lastUpdated, isReconnecting } = useWebsocket();
 
   return (
     <div className="app">
@@ -86,8 +14,22 @@ function App() {
           Last Updated: {lastUpdated.toLocaleString()}
         </div>
       )}
+      {wsError && <div className="error">{wsError}</div>}
+      {isReconnecting && (
+        <div className="reconnect">Reconnecting to server...</div>
+      )}
+
+      <div className="card">
+        {REGIONS.map(region => {
+          return (
+            <div className="region" key={region.split('-').join('')}>
+              {region}
+            </div>
+          );
+        })}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default App

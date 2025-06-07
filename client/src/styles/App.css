@@ -1,0 +1,12 @@
+.app {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  padding: 24;
+  max-width: 1200;
+  margin: '0 auto';
+}
+
+.lastUpdated {
+  color: '#666';
+  margin-bottom: 8;
+  font-size: 14;
+}

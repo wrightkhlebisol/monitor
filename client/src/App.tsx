@@ -19,11 +19,15 @@ function App() {
         <div className="reconnect">Reconnecting to server...</div>
       )}
 
-      <div className="card">
+      <div className="dashboard">
         {REGIONS.map(region => {
+          const regionStatus = status?.[region];
           return (
-            <div className="region" key={region.split('-').join('')}>
-              {region}
+            <div className="card" key={region}>
+              <div className="header">
+                  {region}
+              </div>
+              <div className="content"></div>
             </div>
           );
         })}

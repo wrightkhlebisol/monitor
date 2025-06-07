@@ -22,15 +22,39 @@
   font-size: 14px;
 }
 
-.card {
+.dashboard {
   display: 'grid';
   grid-template-columns: '1fr';
   gap: 24px;
 }
 
-.region {
+.card {
   min-width: 0;
   border: 1px solid #ccc;
   border-radius: 8px;
   margin-bottom: 24px;
+  box-shadow: 0 2px 8px #0001;
+  background: '#fafbfc';
+  display: 'flex';
+  flex-direction: 'column';
+}
+
+.status {
+  color: green;
+}
+
+.header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  background: #f5f7fa;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: 'flex';
+  align-items: 'center';
+  justify-content: 'space-between';
+}
+
+.content {
+  padding: 16px;
+  flex: 1;
 }

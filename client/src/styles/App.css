@@ -1,4 +1,4 @@
-.app {
+section {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   padding: 24px;
   max-width: 1200px;
@@ -6,25 +6,25 @@
 }
 
 .lastUpdated {
-  color: '#666';
+  color: #666;
   margin-bottom: 8px;
   font-size: 14px;
 }
 
-.error {
-  color: 'red';
+.wsError {
+  color: red;
   margin-bottom: 16px;
 }
 
 .reconnect {
-  color: '#d97706';
+  color: #d97706;
   margin-bottom: 8px;
   font-size: 14px;
 }
 
 .dashboard {
-  display: 'grid';
-  grid-template-columns: '1fr';
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 
@@ -34,27 +34,94 @@
   border-radius: 8px;
   margin-bottom: 24px;
   box-shadow: 0 2px 8px #0001;
-  background: '#fafbfc';
-  display: 'flex';
-  flex-direction: 'column';
+  background: #fafbfc;
+  display: flex;
+  flex-direction: column;
 }
 
-.status {
-  color: green;
-}
-
-.header {
+header {
   padding: 16px;
   border-bottom: 1px solid #eee;
   background: #f5f7fa;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  display: 'flex';
-  align-items: 'center';
-  justify-content: 'space-between';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.content {
+.headerButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  color: #333;
+}
+
+.metadata {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.regionName {
+  margin: 0;
+}
+
+main {
   padding: 16px;
   flex: 1;
+}
+
+.ok {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.timeout {
+  color: orange;
+}
+
+.unknown {
+  color: gray;
+}
+
+.noData {
+  color: #888;
+}
+
+.invalidData {
+  color: #c00;
+}
+
+.regionData {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.regionDetes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.regionDetail {
+  flex: 1 1 250px;
+  min-width: 220px;
+  max-width: 400px;
+}
+
+.regionServices {
+  margin-top: 8px;
+}
+
+.regionStats {
+  flex: 2 1 400px;
+  min-width: 320px;
+  font-weight: 350;
 }

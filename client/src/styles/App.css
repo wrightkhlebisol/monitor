@@ -1,6 +1,5 @@
 section {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  padding: 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -101,7 +100,7 @@ main {
 .regionData {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 10px;
 }
 
 .regionDetes {
@@ -124,4 +123,90 @@ main {
   flex: 2 1 400px;
   min-width: 320px;
   font-weight: 350;
+}
+
+.workersTable {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.workersTableSection {
+  overflow-x: auto;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.workersTableSection table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.workersTableSection thead {
+  position: sticky;
+  top: 0;
+  background: #f5f7fa;
+  z-index: 1;
+}
+
+.workersTableSection th,
+td {
+  border-bottom: 1px solid #ccc;
+  text-align: right;
+}
+
+.workersTableSection th:nth-child(1),
+td:nth-child(1) {
+  text-align: left;
+}
+
+.workersTableSection td:nth-child(1) {
+  font-weight: 700;
+}
+
+.workersTableSection th:nth-last-child(1),
+th:nth-last-child(2) {
+  min-width: 120px;
+}
+
+.workersTableSection ul {
+  margin: 0;
+  list-style-type: disc;
+  padding-left: 16px;
+}
+
+.workersTableSection li span {
+  color: #888;
+}
+
+.workersTableSection td span {
+  color: #888;
+}
+
+.workersTableSection tr.even {
+  background: #fff;
+}
+
+.workersTableSection tr.odd {
+  background: #f6f8fa;
+}
+
+.workersTableSection td.waitTime,
+td.waiting {
+  color: #d97706;
+}
+
+.workersTableSection td.workers {
+  color: #2563eb;
+}
+
+.workersTableSection td.timeToReturn {
+  color: #dc2626;
+}
+
+.workersTableSection td.long {
+  font-size: 11px;
+  max-width: 160px;
+  overflow-wrap: break-word;
+  text-align: left;
 }

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useWebsocket } from './hooks/useWebsocket';
 import { REGIONS } from './constants';
-import type { Region, RegionResponse } from './types';
+import type { Region, RegionResponse, WorkerStats } from './types';
 import './styles/App.css'
+import clsx from 'clsx';
 
 function App() {
   const { status, error: wsError, lastUpdated, isReconnecting } = useWebsocket();
@@ -121,6 +122,72 @@ function App() {
                         </div>
                         <div className="workersTable">
                           <b>Workers:</b>
+                          <section className="workersTableSection">
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>Type</th>
+                                  <th>Wait Time</th>
+                                  <th>Workers</th>
+                                  <th>Waiting</th>
+                                  <th>Idle</th>
+                                  <th>Time to Return</th>
+                                  <th>Recently Blocked Keys</th>
+                                  <th>Top Keys</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {
+                                  regionStatus.data.results.stats.server.workers.map(([type, stats]: [string, WorkerStats], idx: number) => (
+                                    <tr key={type + idx} className={clsx({
+                                      "even": idx % 2 === 0,
+                                      "odd": idx % 2 !== 0
+                                  })}>
+                                      <td>{ type }</td>
+                                      <td className={clsx({
+                                        "waitTime": stats.wait_time
+                                      })}>{ stats.wait_time}</td>
+                                      <td className={clsx({
+                                        "workers": stats.workers
+                                      })}>{stats.workers}</td>
+                                      <td className={clsx({
+                                        "waiting": stats.waiting
+                                      })}>{stats.waiting}</td>
+                                      <td>{stats.idle}</td>
+                                      <td className={clsx({
+                                        "timeToReturn": stats.time_to_return
+                                      })}>{stats.time_to_return}</td>
+                                      <td className='long'>
+                                        {stats.recently_blocked_keys.length > 0 ? (
+                                          <ul>
+                                            {stats.recently_blocked_keys.map((k: [string, number, string], i: number) => (
+                                              <li key={k[0] + i}>
+                                                <b>{k[0]}</b> ({k[1]}) <br />
+                                                <span>{k[2]}</span>
+                                              </li>
+                                            ))}
+                                          </ul>
+                                        ): <span>-</span>}
+                                      </td>
+                                      <td className='long'>
+                                        {stats.top_keys.length > 0 ? (
+                                          <ul>
+                                            {
+                                              stats.top_keys.map((k: [string, number], i: number) => (
+                                                <li key={k[0] + i}>
+                                                  <b>{k[0]}</b>: {k[1]}
+                                                </li>
+                                              ))
+                                            }
+                                          </ul>
+                                        ) : <span>-</span>
+                                        }
+                                      </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </section>
                         </div>
                       </section>
                     ): (

@@ -1,54 +1,86 @@
-# React + TypeScript + Vite
+# Region Status Monitor - Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React (TypeScript) client for the Region Status Monitor. Displays a real-time dashboard for monitoring regional service status using WebSocket communication.
 
-Currently, two official plugins are available:
+## Features
+- Real-time status updates via WebSocket
+- Automatic reconnection with exponential backoff
+- Responsive dashboard UI
+- Error handling and validation
+- Strict TypeScript implementation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
+- Node.js >= 18
+- npm >= 9
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Install dependencies:
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Create a `.env.local` file in the root directory:
+```bash
+NEXT_PUBLIC_WS_HOST=ws://localhost:8080
 ```
+
+3. Start the development server:
+```bash
+npm start
+```
+
+## Deployment (Vercel)
+
+1. Install Vercel CLI:
+```bash
+npm install -g vercel
+```
+
+2. Deploy to Vercel:
+```bash
+vercel
+```
+
+3. Set environment variables in Vercel dashboard:
+- `NEXT_PUBLIC_WS_HOST`: Your WebSocket server URL (e.g., `ws://your-server-ip/ws`)
+
+## Testing
+```bash
+npm test
+```
+
+## Project Structure
+```
+client/
+├── src/
+│   ├── components/     # React components
+│   ├── hooks/         # Custom React hooks
+│   ├── types/         # TypeScript type definitions
+│   ├── constants/     # Application constants
+│   └── styles/        # CSS styles
+├── public/            # Static assets
+└── tests/            # Test files
+```
+
+## Development
+
+### Available Scripts
+- `npm start`: Start development server
+- `npm build`: Build for production
+- `npm test`: Run tests
+- `npm lint`: Run linter
+
+### Environment Variables
+- `NEXT_PUBLIC_WS_HOST`: WebSocket server URL
+- `NODE_ENV`: Environment (development/production)
+
+## Contributing
+1. Create a feature branch
+2. Make your changes
+3. Submit a pull request
+
+## Security
+- WebSocket connections are secured through the server
+- Input validation and sanitization
+- Type safety with TypeScript 

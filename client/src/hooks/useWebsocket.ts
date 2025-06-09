@@ -21,7 +21,8 @@ export function useWebsocket(): WebSocketState {
      */
     function connect(): void {
       const isProduction = process.env.NODE_ENV === 'production';
-      const wsUrl = isProduction ? `${process.env.HOST}/ws` : 'ws://localhost:8080';
+      const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+      const wsUrl = isProduction ? `${wsProtocol}3.11.146.103:80/ws` : 'ws://3.11.146.103:80/ws';
 
       ws = new WebSocket(wsUrl);
 

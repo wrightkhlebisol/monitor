@@ -12,5 +12,5 @@
   },
   "include": [
     "src/**/*.ts"
-, "src/index.unit.test.js"  ]
+, "src/index.unit.test.js", "../client/constants.ts"  ]
 }
